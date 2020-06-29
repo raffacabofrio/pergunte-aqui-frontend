@@ -1,16 +1,16 @@
 <template>
   <v-layout column justify-center align-left>
-    <v-alert type="info" dismissible="true">Buscando por "Goku"</v-alert>
+    <v-alert type="info" :dismissible="true">Buscando por "Goku"</v-alert>
 
     <div class="float-left">
       <Card
-        v-for="i in 10"
-        :key="i"
-        title="Quem é mais forte, goku ou superman?"
-        userName="João Maia"
-        date="01/01/2018"
-        :totalLikes="5"
-        :totalAnswers="3"
+        v-for="q in questions"
+        :key="q.id"
+        :title="q.text"
+        :userName="q.user"
+        :date="q.creationDate"
+        :totalLikes="q.totalLikes"
+        :totalAnswers="q.totalAnswers"
         class="card-margin"
       />
     </div>
@@ -34,6 +34,14 @@ export default {
   components: {
     Card,
     Form,
+  },
+  data() {
+    return {
+      questions: [],
+    }
+  },
+  async mounted() {
+    this.questions = await this.$qa.getQuestions()
   },
 }
 </script>

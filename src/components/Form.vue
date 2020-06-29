@@ -33,10 +33,6 @@
 export default {
   name: 'Form',
   props: {
-    text: {
-      type: String,
-      required: true,
-    },
     type: {
       type: String,
       default: 'question',
