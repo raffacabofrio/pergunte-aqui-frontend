@@ -1,6 +1,8 @@
 <template>
   <v-layout column justify-center align-left>
-    <v-alert type="info" :dismissible="true">Buscando por "Goku"</v-alert>
+    <v-alert v-model="showSearchAlert" v-if="searchText" type="info" :dismissible="true">
+      Buscando por "{{ searchText }}"
+    </v-alert>
 
     <div class="float-left">
       <Card
@@ -38,10 +40,22 @@ export default {
   data() {
     return {
       questions: [],
+      searchText: '',
+      showSearchAlert: true,
     }
   },
   async mounted() {
-    this.questions = await this.$qa.getQuestions()
+    var search = this.$route.query.search
+    this.questions = await this.$qa.getQuestions(search)
+    this.searchText = search
+  },
+  watch: {
+    showSearchAlert(val) {
+      if (!val) {
+        this.$nuxt.$loading.start()
+        location.href = '/perguntas'
+      }
+    },
   },
 }
 </script>

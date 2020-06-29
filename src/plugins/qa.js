@@ -10,6 +10,8 @@ class qa {
 
   async getQuestions(search = '') {
     var url = '/api/QA/questions'
+    if (search) url = url + '?search=' + search
+
     const res = await this.httpClient.get(url)
 
     if (res.data.error === true) this.throwMktPlaceApiError(res)

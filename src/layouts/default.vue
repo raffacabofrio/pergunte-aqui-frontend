@@ -17,25 +17,22 @@
       <img src="logo.png" width="80" />
       <v-spacer />
 
-      <v-text-field flat solo-inverted hide-details prepend-inner-icon="mdi-magnify" label="Busca"></v-text-field>
+      <v-text-field
+        flat
+        solo-inverted
+        hide-details
+        prepend-inner-icon="mdi-magnify"
+        label="Busca"
+        v-model="searchText"
+        @keyup.enter="search"
+      ></v-text-field>
     </v-app-bar>
     <v-content>
       <v-container>
         <nuxt />
       </v-container>
     </v-content>
-    <v-navigation-drawer v-model="rightDrawer" :right="right" temporary fixed>
-      <v-list>
-        <v-list-item @click.native="right = !right">
-          <v-list-item-action>
-            <v-icon light>
-              mdi-repeat
-            </v-icon>
-          </v-list-item-action>
-          <v-list-item-title>Switch drawer (click me)</v-list-item-title>
-        </v-list-item>
-      </v-list>
-    </v-navigation-drawer>
+
     <v-footer :absolute="!fixed" app>
       <span>Open Source {{ new Date().getFullYear() }}</span>
     </v-footer>
@@ -46,6 +43,7 @@
 export default {
   data() {
     return {
+      searchText: '',
       clipped: false,
       drawer: false,
       fixed: false,
@@ -71,6 +69,15 @@ export default {
       rightDrawer: false,
       title: 'Vuetify.js',
     }
+  },
+  mounted() {
+    var searchText = this.$route.query.search
+    if (searchText) this.searchText = searchText
+  },
+  methods: {
+    search() {
+      location.href = '/perguntas?search=' + this.searchText
+    },
   },
 }
 </script>
