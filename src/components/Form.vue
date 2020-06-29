@@ -23,8 +23,8 @@
       </v-card>
     </v-dialog>
 
-    <v-btn color="pink" dark fixed bottom right fab>
-      <v-icon @click="showModal">mdi-plus</v-icon>
+    <v-btn @click="showModal" color="pink" dark fixed bottom right fab>
+      <v-icon>mdi-plus</v-icon>
     </v-btn>
   </v-row>
 </template>
