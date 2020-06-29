@@ -14,7 +14,7 @@
       />
     </div>
 
-    <Form />
+    <Form type="answer" />
   </v-layout>
 </template>
 
