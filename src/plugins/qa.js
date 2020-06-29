@@ -3,14 +3,26 @@ import axios from 'axios'
 
 class qa {
   constructor() {
-    // todo: set axios base path.
-    // todo: get base path from env file.
+    this.httpClient = axios.create({
+      baseURL: process.env.qaApiBasePath,
+    })
   }
 
   async getQuestions(search = '') {
-    var url = 'http://localhost:33216/api/QA/questions'
-    const res = await axios.get(url)
+    var url = '/api/QA/questions'
+    const res = await this.httpClient.get(url)
+
+    if (res.data.error === true) this.throwMktPlaceApiError(res)
+
     return res.data
+  }
+
+  throwError(res) {
+    let myError = new TypeError(`${res.status} - ${res.message}`)
+    myError.errorCode = res.errorCode
+    myError.status = res.status
+    console.error('Error: ', myError)
+    throw myError
   }
 }
 

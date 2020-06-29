@@ -1,4 +1,6 @@
 import colors from 'vuetify/es5/util/colors'
+require('dotenv').config()
+var pjson = require('./package.json')
 
 export default {
   /*
@@ -76,4 +78,9 @@ export default {
    ** See https://nuxtjs.org/api/configuration-build/
    */
   build: {},
+  env: {
+    qaApiBasePath: process.env.QA_API,
+    env: process.env.ENV,
+    version: pjson.version,
+  },
 }
