@@ -5,7 +5,7 @@
         <p class="display-1">{{ title }}</p>
         <v-list-item-subtitle
           >{{ type == 'question' ? 'Perguntado por' : 'Respondido por' }} {{ userName }} em
-          {{ date }}</v-list-item-subtitle
+          {{ date | date }}</v-list-item-subtitle
         >
       </v-list-item-content>
     </v-list-item>
