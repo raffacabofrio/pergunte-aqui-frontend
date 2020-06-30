@@ -14,6 +14,7 @@
         :totalLikes="q.totalLikes"
         :totalAnswers="q.totalAnswers"
         class="card-margin"
+        :questionId="q.id"
       />
     </div>
 

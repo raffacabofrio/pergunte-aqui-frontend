@@ -18,7 +18,7 @@
       <v-flex xs3 v-if="type == 'question'" />
 
       <v-badge :content="totalAnswers" :value="totalAnswers" color="green" overlap v-if="type == 'question'">
-        <v-btn icon to="/perguntas/123/respostas"><v-icon large>mdi-message</v-icon></v-btn>
+        <v-btn icon :to="`/perguntas/${questionId}/respostas`"><v-icon large>mdi-message</v-icon></v-btn>
       </v-badge>
     </v-card-actions>
   </v-card>
@@ -54,6 +54,9 @@ export default {
     type: {
       type: String,
       default: 'question',
+    },
+    questionId: {
+      type: String,
     },
   },
 }
