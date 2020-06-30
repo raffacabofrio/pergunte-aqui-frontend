@@ -78,6 +78,7 @@ export default {
         this.text = ''
         this.snackbar = true
       } catch (err) {
+        this.loading = false
         var msg = err.response.data.messages[0]
         alert(msg)
       }

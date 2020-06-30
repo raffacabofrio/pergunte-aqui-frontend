@@ -16,6 +16,8 @@
         :totalLikes="a.totalLikes"
         class="card-margin"
         type="answer"
+        :id="a.id"
+        :onLike="onLike"
       />
     </div>
 
@@ -54,9 +56,15 @@ export default {
     async onAdd(user, text) {
       var questionId = this.$route.params.questionId
       await this.$qa.addAnswer(user, text, questionId)
-
+      await this.reloadAnswers()
+    },
+    async onLike(user, answerId) {
+      await this.$qa.addLike(user, null, answerId)
+      await this.reloadAnswers()
+    },
+    async reloadAnswers() {
       //todo: push on store for cache and offline experience.
-      this.answers = await this.$qa.getAnswers(questionId)
+      this.answers = await this.$qa.getAnswers(this.question.id)
     },
   },
 }
