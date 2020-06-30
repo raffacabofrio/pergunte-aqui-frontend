@@ -24,6 +24,14 @@ class qa {
     }
     return await this.httpClient.post('/api/QA/addquestion', params)
   }
+
+  async addQuestion(user, text) {
+    var payload = {
+      user,
+      text,
+    }
+    return await this.httpClient.post('/api/QA/addquestion', payload)
+  }
 }
 
 Vue.prototype.$qa = new qa()

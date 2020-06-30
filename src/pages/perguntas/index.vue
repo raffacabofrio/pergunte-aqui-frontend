@@ -17,7 +17,7 @@
       />
     </div>
 
-    <Form />
+    <Form :onAdd="onAdd" />
   </v-layout>
 </template>
 
@@ -55,6 +55,11 @@ export default {
         this.$nuxt.$loading.start()
         location.href = '/perguntas'
       }
+    },
+  },
+  methods: {
+    async onAdd(user, text) {
+      await this.$qa.addQuestion(user, text)
     },
   },
 }

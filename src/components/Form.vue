@@ -26,6 +26,16 @@
     <v-btn @click="showModal" color="pink" dark fixed bottom right fab>
       <v-icon>mdi-plus</v-icon>
     </v-btn>
+
+    <v-snackbar v-model="snackbar" :bottom="true" color="success" timeout="3000">
+      Inserção efetuada com sucesso.
+
+      <template v-slot:action="{ attrs }">
+        <v-btn text v-bind="attrs" @click="snackbar = false">
+          Ok
+        </v-btn>
+      </template>
+    </v-snackbar>
   </v-row>
 </template>
 
@@ -37,9 +47,14 @@ export default {
       type: String,
       default: 'question',
     },
+    onAdd: {
+      type: Function,
+      required: true,
+    },
   },
   data: () => ({
     dialog: false,
+    snackbar: false,
     title: '',
     text: '',
   }),
@@ -50,9 +65,10 @@ export default {
     async add() {
       try {
         var userName = this.$user.getName()
-        await this.$qa.addQuestion(userName, this.text)
+        await this.onAdd(userName, this.text) // onAdd prop
         this.dialog = false
         this.text = ''
+        this.snackbar = true
       } catch (err) {
         var msg = err.response.data.messages[0]
         alert(msg)
