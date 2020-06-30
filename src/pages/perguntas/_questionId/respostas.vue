@@ -6,7 +6,7 @@
       Nenhuma resposta encontrada. Seja o primeiro a responder. Clique no botão + abaixo. ;)
     </v-alert>
 
-    <div class="float-left">
+    <div class="float-left" style="margin-top: 20px !important;">
       <Card
         v-for="a in answers"
         :key="a.id"
@@ -49,6 +49,15 @@ export default {
     var questionId = this.$route.params.questionId
     this.question = await this.$qa.getQuestion(questionId)
     this.answers = await this.$qa.getAnswers(questionId)
+  },
+  methods: {
+    async onAdd(user, text) {
+      var questionId = this.$route.params.questionId
+      await this.$qa.addAnswer(user, text, questionId)
+
+      //todo: push on store for cache and offline experience.
+      this.answers = await this.$qa.getAnswers(questionId)
+    },
   },
 }
 </script>

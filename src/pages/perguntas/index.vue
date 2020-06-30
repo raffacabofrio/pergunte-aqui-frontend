@@ -61,6 +61,10 @@ export default {
   methods: {
     async onAdd(user, text) {
       await this.$qa.addQuestion(user, text)
+
+      //todo: push on store for cache and offline experience.
+      var search = this.$route.query.search
+      this.questions = await this.$qa.getQuestions(search)
     },
   },
 }
