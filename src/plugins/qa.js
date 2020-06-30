@@ -17,6 +17,12 @@ class qa {
     return res.data
   }
 
+  async getQuestion(id) {
+    var url = `/api/QA/question/${id}`
+    const res = await this.httpClient.get(url)
+    return res.data
+  }
+
   async addQuestion(user, text) {
     var params = {
       user,
@@ -25,12 +31,19 @@ class qa {
     return await this.httpClient.post('/api/QA/addquestion', params)
   }
 
-  async addQuestion(user, text) {
+  async getAnswers(questionId) {
+    var url = `/api/QA/question/${questionId}/answers`
+    const res = await this.httpClient.get(url)
+    return res.data
+  }
+
+  async addAnswer(user, text, questionId) {
     var payload = {
       user,
       text,
+      questionId,
     }
-    return await this.httpClient.post('/api/QA/addquestion', payload)
+    return await this.httpClient.post('/api/QA/addAnswer', payload)
   }
 }
 
