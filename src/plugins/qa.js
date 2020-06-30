@@ -14,17 +14,15 @@ class qa {
 
     const res = await this.httpClient.get(url)
 
-    if (res.data.error === true) this.throwMktPlaceApiError(res)
-
     return res.data
   }
 
-  throwError(res) {
-    let myError = new TypeError(`${res.status} - ${res.message}`)
-    myError.errorCode = res.errorCode
-    myError.status = res.status
-    console.error('Error: ', myError)
-    throw myError
+  async addQuestion(user, text) {
+    var params = {
+      user,
+      text,
+    }
+    return await this.httpClient.post('/api/QA/addquestion', params)
   }
 }
 
