@@ -45,6 +45,15 @@ class qa {
     }
     return await this.httpClient.post('/api/QA/addAnswer', payload)
   }
+
+  async addLike(user, questionId, answerId) {
+    var payload = {
+      user,
+      questionId,
+      answerId,
+    }
+    return await this.httpClient.post('/api/QA/addLike', payload)
+  }
 }
 
 Vue.prototype.$qa = new qa()

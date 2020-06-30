@@ -12,7 +12,7 @@
 
     <v-card-actions class="d-flex justify-center">
       <v-badge :content="totalLikes" :value="totalLikes" color="green" overlap>
-        <v-btn icon><v-icon large>mdi-thumb-up</v-icon></v-btn>
+        <v-btn icon @click="like"><v-icon large>mdi-thumb-up</v-icon></v-btn>
       </v-badge>
 
       <v-flex xs3 v-if="type == 'question'" />
@@ -41,7 +41,7 @@ export default {
     date: {
       type: String,
       required: true,
-      default: '01/01/2020 19:00',
+      default: '???',
     },
     totalLikes: {
       type: Number,
@@ -57,6 +57,26 @@ export default {
     },
     questionId: {
       type: String,
+    },
+    onLike: {
+      type: Function,
+      required: true,
+    },
+  },
+  methods: {
+    async like() {
+      try {
+        var userName = this.$user.getName()
+
+        if (!userName) {
+          alert('Ocorreu um erro. Por favor volte para tela inicial e informe seu nome.')
+          return
+        }
+        await this.onLike(userName, this.questionId) // onLike prop
+      } catch (err) {
+        var msg = err.response.data.messages[0]
+        alert(msg)
+      }
     },
   },
 }
