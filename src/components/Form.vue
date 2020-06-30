@@ -18,7 +18,7 @@
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn color="secundary" @click="dialog = false">Cancelar</v-btn>
-          <v-btn color="primary" @click="add" :disabled="text.length < 20">Salvar</v-btn>
+          <v-btn color="primary" @click="add" :disabled="text.length < 20" :loading="loading">Salvar</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -57,6 +57,7 @@ export default {
     snackbar: false,
     title: '',
     text: '',
+    loading: false,
   }),
   methods: {
     showModal() {
@@ -65,7 +66,14 @@ export default {
     async add() {
       try {
         var userName = this.$user.getName()
+
+        if (!userName) {
+          alert('Ocorreu um erro. Por favor volte para tela inicial e informe seu nome.')
+          return
+        }
+        this.loading = true
         await this.onAdd(userName, this.text) // onAdd prop
+        this.loading = false
         this.dialog = false
         this.text = ''
         this.snackbar = true
